@@ -1,0 +1,12 @@
+Package: MASCOT
+Type: Package
+Title: Model-based Analysis of Single cell CRISPR knockOuT screening
+Version: 1.0
+Date: 2018-04-21
+Author: Bin Duan
+Maintainer: Bin Duan <bioinfo_db@163.com>
+Description: MASCOT is an integrated pipeline for model-based analysis of single cell CRISPR knockout screening data 
+License: GPL-2
+Depends: R>=3.4.1, Biostrings, Seurat, topicmodels
+Keyword: topic-model Single-cell CRISPR
+    
