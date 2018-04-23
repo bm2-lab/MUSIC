@@ -116,7 +116,7 @@
     # plot heatmap for topics profile among cells.
     Plot_cell_topic(optimal_Topics)
     ```
-    ![](figure/distribution_cell_in_topics.png)<!-- -->
+    ![](figure/distribution_of_cells_for_each_topic.png)<!-- -->
     
     ```r
     # annotate each topic's functions. Hs(homo sapiens) or Mm(mus musculus) are available.
