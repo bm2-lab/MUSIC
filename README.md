@@ -131,7 +131,7 @@
     library(org.Mm.eg.db)
     gRNAFilePath<-"extdata/crop_unstimulated_sgrna.fa"
     crop_results <- offTargetAnalysis(inputFilePath = gRNAFilePath, findgRNAs = FALSE,findgRNAsWithREcutOnly = FALSE,findPairedgRNAOnly = FALSE, BSgenomeName = Hsapiens,txdb = TxDb.Hsapiens.UCSC.hg38.knownGene,min.score=1,scoring.method = "CFDscore",orgAnn = org.Hs.egSYMBOL, max.mismatch = 3,outputDir=getwd(), overwrite = TRUE)
-    # then, check the offtargets.
+    # then, check if there are off-targets.
     offTarget_Info<-Get_offtarget(crop_results,crop_seq_filtered$expression_profile_qc_zr_se_pc,crop_seq_filtered$sample_info_gene_qc_zr_se_pc,crop_seq_list$sample_info_sgRNA)
     
     ```
@@ -157,6 +157,5 @@
     # output the topic-specific ranking list with a summary or detailed style.
     write.table(rank_topic_specific_result$rank_topic_specific_result_summary,"~/rank_topic_specific_result_summary.txt",col.names=T,row.names=F,quote=F,sep="\t")
     write.table(rank_topic_specific_result$rank_topic_specific_result_detail,"~/rank_topic_specific_result_detail.txt",col.names=T,row.names=F,quote=F,sep="\t")
-
-    
+ 
  
