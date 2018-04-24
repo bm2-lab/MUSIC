@@ -111,7 +111,7 @@ Cell_qc<-function(expression_profile,sample_info_gene,species="Hs",gene_low=500,
   sample_info_gene<-sample_info_gene[names(sample_info_gene) %in% colnames(expression_profile)]
   expression_profile <-expression_profile[,!duplicated(colnames(expression_profile))]
   KO <- new("seurat", raw.data = expression_profile)
-  KO <- Setup(KO, min.cells = 0,min.gene=0,do.logNormalize = TRUE, total.expr = 1e4, project = "expression_profile")
+  KO <- CreateSeuratObject(raw.data = expression_profile,normalization.method="LogNormalize",project = "expression_profile")
   if(species=="Hs"){
     mito.genes <- grep("^MT-", rownames(KO@data), value = TRUE)
   }else if(species=="Mm"){
