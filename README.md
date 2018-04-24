@@ -41,7 +41,7 @@
     ```
     ```r
     class(crop_unstimulated_sample_info_gene)
-    head(crop_unstimalated_sample_info_gene)
+    head(crop_unstimulated_sample_info_gene)
     ```
     ```
     ## [1] "character"
