@@ -105,7 +105,7 @@ Input_preprocess<-function(expression_profile,sample_info_gene,sample_info_sgRNA
   }
 }
 # ********************** quality control of data
-Cell_qc<-function(expression_profile,sample_info_gene,species="Hs",gene_low=500,gene_high=10000,mito_high=0.1,umi_low=1500,umi_high=Inf,plot=FALSE,plot_path="~/quality_control.pdf"){
+Cell_qc<-function(expression_profile,sample_info_gene,species="Hs",gene_low=500,gene_high=10000,mito_high=0.1,umi_low=1500,umi_high=Inf,plot=FALSE,plot_path="./quality_control.pdf"){
   require(Seurat)
   require(stringr)
   sample_info_gene<-sample_info_gene[names(sample_info_gene) %in% colnames(expression_profile)]
@@ -154,7 +154,7 @@ Cell_qc<-function(expression_profile,sample_info_gene,species="Hs",gene_low=500,
   return(list("expression_profile_qc"=KO_data_qc,"sample_info_gene_qc"=sample_info_gene))
 }
 # ***********************batch effect if there is batch and you think it may affect the example
-Batch_adjust<-function(expression_profile,sample_info_batch,sample_info_gene,plot=TRUE,plot_path="~/batch_check.pdf"){
+Batch_adjust<-function(expression_profile,sample_info_batch,sample_info_gene,plot=TRUE,plot_path="./batch_check.pdf"){
   require(BatchQC)
   require(sva)
   gene_counts_sum<-apply(expression_profile,1,sum)
@@ -195,7 +195,7 @@ Batch_adjust<-function(expression_profile,sample_info_batch,sample_info_gene,plo
   return(expression_profile)
 }
 # ********************   sgrna efficiency assessment and filtering
-Cell_filtering<-function(expression_profile,sample_info_gene,sample_info_sgRNA,nonzero=0.01,grna_cell_num=10,fold_change=0.5,cellNum=30,plot=FALSE,plot_path_zeroRatio="~/nonzero_ratio.pdf",plot_path_sgRNAefficiency="~/sgRNA_efficiency.pdf",plot_path_capturePhenotype="~/phenotype_capture.pdf",plot_path_KO_efficiency="~/KO_efficiency.pdf"){
+Cell_filtering<-function(expression_profile,sample_info_gene,sample_info_sgRNA,nonzero=0.01,grna_cell_num=10,fold_change=0.5,cellNum=30,plot=FALSE,plot_path_zeroRatio="./nonzero_ratio.pdf",plot_path_sgRNAefficiency="./sgRNA_efficiency.pdf",plot_path_capturePhenotype="./phenotype_capture.pdf",plot_path_KO_efficiency="./KO_efficiency.pdf"){
   require(reshape2)
   require(ggplot2)
   require(stringr)
@@ -418,7 +418,7 @@ Cell_filtering<-function(expression_profile,sample_info_gene,sample_info_sgRNA,n
   return(Filtering_And_KOefficiency)
 }
 # ********************   plotting all information component off cells
-Plot_filtering_overview<-function(sample_info_gene_original=c(),sample_info_gene_qc=c(),nonzeroRatio=c(),sample_info_gene_qc_zr_se=c(),sample_info_gene_qc_zr_se_pc=c(),plot_path="~/overview_of_cell_filterings.pdf"){
+Plot_filtering_overview<-function(sample_info_gene_original=c(),sample_info_gene_qc=c(),nonzeroRatio=c(),sample_info_gene_qc_zr_se=c(),sample_info_gene_qc_zr_se_pc=c(),plot_path="./overview_of_cell_filterings.pdf"){
   require(ggplot2)
   original<-table(sample_info_gene_original)
   filter1_qc<-table(sample_info_gene_qc)
@@ -476,7 +476,7 @@ Plot_filtering_overview<-function(sample_info_gene_original=c(),sample_info_gene
 }
 ################################     Model building          ##############################
 # ************************   obtaining high dispersion different genes
-Get_high_var_genes<-function(expression_profile,sample_info_gene,x.low.cutoff=0.0125,x.high.cutoff=5,y.cutoff=1,do.spike=FALSE,num.bin=30,plot=FALSE,plot_path="~/get_high_var_genes.pdf"){
+Get_high_var_genes<-function(expression_profile,sample_info_gene,x.low.cutoff=0.0125,x.high.cutoff=5,y.cutoff=1,do.spike=FALSE,num.bin=30,plot=FALSE,plot_path="./get_high_var_genes.pdf"){
   logVarDivMean=function(x) return(log(var(exp(x)-1)/mean(exp(x)-1)))
   expMean=function(x) return(log(mean(exp(x)-1)+1))
   data_norm<-function(xy,num.bin){
@@ -534,7 +534,7 @@ Get_high_var_genes<-function(expression_profile,sample_info_gene,x.low.cutoff=0.
   return(singleCellCRISPRscreen_vargene)
 }
 # ************************   selecting the optimal topic number automatically
-Get_topics<-function(expression_profile_var_gene,sample_info_gene,topic_number_min=3,topic_number_max=8,alpha=0.5,seed_num=2017,burnin=1000,thin=100,iter=1000,plot=FALSE,plot_path="~/select_topic_number.pdf"){
+Get_topics<-function(expression_profile_var_gene,sample_info_gene,topic_number_min=3,topic_number_max=8,alpha=0.5,seed_num=2017,burnin=1000,thin=100,iter=1000,plot=FALSE,plot_path="./select_topic_number.pdf"){
   require(slam)
   require(topicmodels)
   require(ggplot2)
@@ -594,7 +594,7 @@ Get_topics<-function(expression_profile_var_gene,sample_info_gene,topic_number_m
   return(topic_model_list[[m]])
 }
 # **********************   plotting heatmap between cells and topics
-Plot_cell_topic<-function(model,plot_path="~/distribution_cell_in_topics.pdf"){
+Plot_cell_topic<-function(model,plot_path="./distribution_cell_in_topics.pdf"){
   require(gplots)
   pdf(file=plot_path)
   topic_cell<-model@gamma
@@ -615,7 +615,7 @@ Plot_cell_topic<-function(model,plot_path="~/distribution_cell_in_topics.pdf"){
   dev.off()
 }
 # *********************   annotating each topic's functions for Hs(homo sapiens) or Mm(mus musculus)
-Topic_func_anno <-function(model,species="Hs",topGene_percent=0.2,topNum=5,FDR=0.1,plot=TRUE,plot_path="~/topic_annotation.pdf"){
+Topic_func_anno <-function(model,species="Hs",topGene_percent=0.2,topNum=5,FDR=0.1,plot=TRUE,plot_path="./topic_annotation.pdf"){
   require(clusterProfiler)
   require(reshape2)
   require(Biostrings)
@@ -894,7 +894,7 @@ Rank_topic_specific<-function(rank_overall_result_detail,alpha=0.5){
   return(list("rank_topic_specific_result_detail"=rankTopicSpecific_result_detail,"rank_topic_specific_result_summary"=rankTopicSpecific_result_summary))
 }
 #********************   compare analysis if there are different condition
-Rank_diff<-function(rankOverall_result_summary_condition1,rankOverall_result_summary_condition2,difference_threshold=0.5,plot=TRUE,plot_path="~/rank_diff.pdf"){
+Rank_diff<-function(rankOverall_result_summary_condition1,rankOverall_result_summary_condition2,difference_threshold=0.5,plot=TRUE,plot_path="./rank_diff.pdf"){
   require(ggplot2)
   time1_rankings<-as.character(rankOverall_result_summary_condition1$knockout)
   sortKnock<-sort(time1_rankings)
