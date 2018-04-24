@@ -129,25 +129,26 @@ Cell_qc<-function(expression_profile,sample_info_gene,species="Hs",gene_low=500,
   }else if(species=="Mm"){
     KO@data<-KO@data[!str_detect(row.names(KO@data),"^mt-"),]
   }
-  KO@data.info$QC<-"filter"
-  for(i in 1:nrow(KO@data.info)){
-    if(KO@data.info$nGene[i]>gene_low & KO@data.info$nGene[i]<gene_high & KO@data.info$percent.mito[i]<mito_high & KO@data.info$nUMI[i]>umi_low & KO@data.info$nUMI[i]<umi_high){
-      KO@data.info$QC[i]<-"retain"
+  KO@meta.data$QC<-"filter"
+  for(i in 1:nrow(KO@meta.data)){
+    if(KO@meta.data$nGene[i]>gene_low & KO@meta.data$nGene[i]<gene_high & KO@meta.data$percent.mito[i]<mito_high & KO@meta.data$nUMI[i]>umi_low & KO@meta.data$nUMI[i]<umi_high){
+      KO@meta.data$QC[i]<-"retain"
     }
   }
   if(plot==TRUE){
     pdf(file=plot_path)
     par(mfrow=c(1,3))
-    hist(KO@data.info$nGene,breaks = 20,freq=FALSE,xlab = "Gene numbers",ylab = "Density",main = "Gene numbers distribution")
-    lines(density(KO@data.info$nGene),col="red",lwd=1)
-    hist(KO@data.info$nUMI,breaks = 20,freq=FALSE,xlab = "UMI numbers",ylab = "Density",main = "UMI numbers distribution")
-    lines(density(KO@data.info$nUMI),col="red",lwd=1)
-    hist(KO@data.info$percent.mito,breaks = 20,freq=FALSE,xlab = "Percent of mito",ylab = "Density",main = "Percent of mito distribution")
-    lines(density(KO@data.info$percent.mito),col="red",lwd=1)
-    VlnPlot(KO, c("nGene", "nUMI", "percent.mito"), nCol = 3,size.use=0.001,cols.use=c("palegreen","pink"),group.by = "QC")
+    hist(KO@meta.data$nGene,breaks = 20,freq=FALSE,xlab = "Gene numbers",ylab = "Density",main = "Gene numbers distribution")
+    lines(density(KO@meta.data$nGene),col="red",lwd=1)
+    hist(KO@meta.data$nUMI,breaks = 20,freq=FALSE,xlab = "UMI numbers",ylab = "Density",main = "UMI numbers distribution")
+    lines(density(KO@meta.data$nUMI),col="red",lwd=1)
+    hist(KO@meta.data$percent.mito,breaks = 20,freq=FALSE,xlab = "Percent of mito",ylab = "Density",main = "Percent of mito distribution")
+    lines(density(KO@meta.data$percent.mito),col="red",lwd=1)
+    p=VlnPlot(KO, c("nGene", "nUMI", "percent.mito"), nCol = 3, point.size.use=0.001,cols.use=c("palegreen","pink"),group.by = "QC")
+    print(p)
     dev.off()
   }
-  KO_filter<-as.matrix(KO@data[,which(KO@data.info$QC=="retain")])
+  KO_filter<-as.matrix(KO@data[,which(KO@meta.data$QC=="retain")])
   KO_data_qc<-KO_filter#have adopted total_expr=10000 and log
   sample_info_gene<-sample_info_gene[names(sample_info_gene) %in% colnames(KO_data_qc)]
   return(list("expression_profile_qc"=KO_data_qc,"sample_info_gene_qc"=sample_info_gene))

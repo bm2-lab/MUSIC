@@ -7,6 +7,6 @@ Author: Bin Duan
 Maintainer: Bin Duan <bioinfo_db@163.com>
 Description: MASCOT is an integrated pipeline for model-based analysis of single cell CRISPR knockout screening data 
 License: GPL-2
-Depends: Biostrings, Seurat, topicmodels
+Depends: Biostrings, Seurat, topicmodels, hash, clusterProfiler, R (>=3.4.1)
 Keyword: topic-model Single-cell CRISPR
     
