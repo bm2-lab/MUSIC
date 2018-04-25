@@ -106,8 +106,8 @@
     ![](figure/get_high_var_genes.png)<!-- -->
     
     ```r
-    # get topics and select the optimal topic number automatically.
-    optimal_topics<-Get_topics(crop_seq_vargene,crop_seq_filtered$sample_info_gene_qc_zr_se_pc,plot=T)
+    # get topics and select the optimal topic number automatically. This step may take a long time if you choosed a large scope of topic number.
+    optimal_topics<-Get_topics(crop_seq_vargene,crop_seq_filtered$sample_info_gene_qc_zr_se_pc,topic_number_min=3,topic_number_max=3,plot=T)
     ```
     ![](figure/select_topic_number.png)<!-- -->
     
@@ -123,18 +123,6 @@
     ```
     ![](figure/topic_annotation.png)<!-- -->
     
-    ```r
-    # get off-target information. This step won't affect the final ranking result, but present the off-target information. In most cases, the sgRNA in such experiment has no off-targets. If you do not want to consider this factor, then just skip this step. 
-    library(CRISPRseek)
-    library("BSgenome.Hsapiens.UCSC.hg38")
-    library(TxDb.Hsapiens.UCSC.hg38.knownGene)
-    library(org.Hs.eg.db)
-    gRNAFilePath<-"extdata/crop_unstimulated_sgrna.fa"
-    crop_results <- offTargetAnalysis(inputFilePath = gRNAFilePath, findgRNAs = FALSE,findgRNAsWithREcutOnly = FALSE,findPairedgRNAOnly = FALSE, BSgenomeName = Hsapiens,txdb = TxDb.Hsapiens.UCSC.hg38.knownGene,min.score=1,scoring.method = "CFDscore",orgAnn = org.Hs.egSYMBOL, max.mismatch = 3,outputDir=getwd(), overwrite = TRUE)
-    # then, check if there are off-targets.
-    offTarget_Info<-Get_offtarget(crop_results,crop_seq_filtered$expression_profile_qc_zr_se_pc,crop_seq_filtered$sample_info_gene_qc_zr_se_pc,crop_seq_list$sample_info_sgRNA)
-    
-    ```
     * The third step: perturbation effect prioritizing
     ```r
     # calculate topic distribution for each cell.
@@ -151,11 +139,24 @@
     * output
     ```r
     # output the overall perturbation effect ranking list with a summary or detailed style.
-    write.table(rank_overall_result$rank_overall_result_summary,"~/rank_overall_result_summary.txt",col.names=T,row.names=F,quote=F,sep="\t")
-    write.table(rank_overall_result$rank_overall_result_detail,"~/rank_overall_result_detail.txt",col.names=T,row.names=F,quote=F,sep="\t")
+    write.table(rank_overall_result$rank_overall_result_summary,"./rank_overall_result_summary.txt",col.names=T,row.names=F,quote=F,sep="\t")
+    write.table(rank_overall_result$rank_overall_result_detail,"./rank_overall_result_detail.txt",col.names=T,row.names=F,quote=F,sep="\t")
     
     # output the topic-specific ranking list with a summary or detailed style.
-    write.table(rank_topic_specific_result$rank_topic_specific_result_summary,"~/rank_topic_specific_result_summary.txt",col.names=T,row.names=F,quote=F,sep="\t")
-    write.table(rank_topic_specific_result$rank_topic_specific_result_detail,"~/rank_topic_specific_result_detail.txt",col.names=T,row.names=F,quote=F,sep="\t")
+    write.table(rank_topic_specific_result$rank_topic_specific_result_summary,"./rank_topic_specific_result_summary.txt",col.names=T,row.names=F,quote=F,sep="\t")
+    write.table(rank_topic_specific_result$rank_topic_specific_result_detail,"./rank_topic_specific_result_detail.txt",col.names=T,row.names=F,quote=F,sep="\t")
+
+    # If sgRNA sequence of each knockouts were known and you want to consider if they have off-targets, you can perform this step.  This step won't affect the final ranking result, but present the off-target information. In most cases, the sgRNA in such experiment has no off-targets. **If you do not want to consider this factor, then just skip this step**. 
+    ```r
+    #library(CRISPRseek)
+    #library("BSgenome.Hsapiens.UCSC.hg38")
+    #library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+    #library(org.Hs.eg.db)
+    #gRNAFilePath<-"extdata/crop_unstimulated_sgrna.fa"
+    #crop_results <- offTargetAnalysis(inputFilePath = gRNAFilePath, findgRNAs = FALSE,findgRNAsWithREcutOnly = FALSE,findPairedgRNAOnly = FALSE, BSgenomeName = Hsapiens,txdb = TxDb.Hsapiens.UCSC.hg38.knownGene,min.score=1,scoring.method = "CFDscore",orgAnn = org.Hs.egSYMBOL, max.mismatch = 3,outputDir=getwd(), overwrite = TRUE)
+    # then, check if there are off-targets.
+    # offTarget_Info<-Get_offtarget(crop_results,crop_seq_filtered$expression_profile_qc_zr_se_pc,crop_seq_filtered$sample_info_gene_qc_zr_se_pc,crop_seq_list$sample_info_sgRNA)
+    
+    ```
  
  
