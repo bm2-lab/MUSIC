@@ -146,7 +146,7 @@
     write.table(rank_topic_specific_result$rank_topic_specific_result_summary,"./rank_topic_specific_result_summary.txt",col.names=T,row.names=F,quote=F,sep="\t")
     write.table(rank_topic_specific_result$rank_topic_specific_result_detail,"./rank_topic_specific_result_detail.txt",col.names=T,row.names=F,quote=F,sep="\t")
 
-    # If sgRNA sequence of each knockouts were known and you want to consider if they have off-targets, you can perform this step.  This step won't affect the final ranking result, but present the off-target information. In most cases, the sgRNA in such experiment has no off-targets. **If you do not want to consider this factor, then just skip this step**. 
+    * If sgRNA sequence of each knockouts were known and you want to consider if they have off-targets, you can perform this step.  This step won't affect the final ranking result, but present the off-target information. In most cases, the sgRNA in such experiment has no off-targets. **If you do not want to consider this factor, then just skip this step**. 
     ```r
     #library(CRISPRseek)
     #library("BSgenome.Hsapiens.UCSC.hg38")
