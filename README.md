@@ -107,7 +107,7 @@
     
     ```r
     # get topics and select the optimal topic number automatically. This step may take a long time if you choosed a large scope of topic number.
-    optimal_topics<-Get_topics(crop_seq_vargene,crop_seq_filtered$sample_info_gene_qc_zr_se_pc,topic_number_min=3,topic_number_max=3,plot=T)
+    optimal_topics<-Get_topics(crop_seq_vargene,crop_seq_filtered$sample_info_gene_qc_zr_se_pc,topic_number_min=3,topic_number_max=8,plot=T)
     ```
     ![](figure/select_topic_number.png)<!-- -->
     
@@ -130,7 +130,7 @@
     
     # calculate the overall perturbation effect ranking list without "offTarget_Info" calculated.
     rank_overall_result<-Rank_overall(distri_Diff)
-    #rank_overall_result<-Rank_overall(distri_Diff,offTarget_hash=offTarget_Info) (if "offTarget_Info" was calculated).
+    #rank_overall_result<-Rank_overall(distri_Diff,offTarget_hash=offTarget_Info) (if "offTarget_Info" was calculated. For "offTarget_info", you can see the introduction in the end).
     
     # calculate the topic-specific ranking list.
     rank_topic_specific_result<-Rank_topic_specific(rank_overall_result$rank_overall_result_detail)

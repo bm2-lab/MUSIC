@@ -568,6 +568,7 @@ Get_topics<-function(expression_profile_var_gene,sample_info_gene,topic_number_m
   purity_score<-c()
   combination_score<-c()
   topic_name=c()
+  print("Depending on the topic number range you choose, it may take a few hours. Please wait patiently.")
   for(k in topic_number_min:topic_number_max){
     print(paste("The scope of topic number you choose is between",topic_number_min,"and",topic_number_max,",now the evaluating topic number is",k,sep=" "))
     topic_model=LDA(dtm,k=k,method="Gibbs",control=control)
