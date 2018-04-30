@@ -10,7 +10,9 @@
 * For illustration purpose, we took **data_format_example/crop_unstimulated.RData** as an example.
     * Install: You can install the **MASCOT** package from Github using **devtools** packages with R>=3.4.1. For convenience, you can also install the **MASCOT** package from Docker Hub with the link [mascot](https://hub.docker.com/r/bm2lab/mascot/)
     ```r
-    require(devtools)
+    library(Biostrings)
+    library(clusterProfiler)
+    library(devtools)
     install_github("bm2-lab/MASCOT")
     library(MASCOT)
     ```
