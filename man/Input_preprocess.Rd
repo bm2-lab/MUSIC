@@ -2,31 +2,28 @@
 \alias{Input_preprocess}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Checking the input data.
+The preprocess of input data.
 }
 \description{
-Integrating the expression profile and corresponding sample information, including each sample's knockout gene, detected sgRNA and batch information.
+Integrating the expression profile and corresponding sample information,
 }
 \usage{
-Input_preprocess(expression_profile, sample_info_gene, sample_info_sgRNA, sample_info_batch = NULL)
+Input_preprocess(expression_profile, perturb_information, batch_information = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
- \item{expression_profile}{
-  A dataframe showing the original expression profile with sample names and gene names.
+  \item{expression_profile}{
+  A dataframe showing the original expression profile whose Row is gene and column is sample.
 }
-  \item{sample_info_gene}{
-  A character vector showing the knockout gene of each sample. The vector's column name is the sample name.
+  \item{perturb_information}{
+  A character vector showing the perturbation of each sample. The vector's name is the sample name.
 }
-  \item{sample_info_sgRNA}{
-  A character vector showing the sgRNA detected in each sample. The vector's column name is the sample name.
-}
-  \item{sample_info_batch}{
-  NULL by default. A character vector showing the batch of each sample. The vector's column name is the sample name.
+  \item{batch_information}{
+  NULL by default. A character vector showing the batch of each sample. The vector's name is the sample name.
 }
 }
 \value{
-A list containing "expression profile", "sample_info_gene", "sample_info_sgRNA" and "sample_info_batch" if it is not NULL.
+A list containing "expression profile", "perturb_information" and "batch_information" if it is not NULL.
 }
 \author{
 Bin Duan

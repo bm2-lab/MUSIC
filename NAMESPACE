@@ -1,4 +1,2 @@
 exportPattern("^[[:alpha:]]+")
 importMethodsFrom("Biostrings", as.list)
-
-
