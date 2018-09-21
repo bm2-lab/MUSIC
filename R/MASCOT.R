@@ -216,18 +216,13 @@ Batch_adjust<-function(expression_profile,batch_information,perturb_information,
   return(expression_profile)
 }
 #*********************** complementary expression profile with SAVER package
-Data_imputation<-function(expression_profile,cpu_num=2,split=4){
+Data_imputation<-function(expression_profile,cpu_num=2){
   require(doParallel)
   require(SAVER)
   gene_num<-nrow(expression_profile)
   cl <- makeCluster(cpu_num, outfile = "")
   registerDoParallel(cl)
-  saver_list<-list()
-  for(i in 1:split){
-    print(paste("Genes were splited with",split,"parts","now it is calculating",i,sep=" "))
-    saver_list[[i]]<-saver(expression_profile, pred.genes = (floor(gene_num*(i-1)/split)+1):floor(gene_num*i/split), pred.genes.only = TRUE,size.factor=1)
-  }
-  expression_profile_saver <- combine.saver(saver_list)
+  expression_profile_saver <-saver(expression_profile,size.factor=1)
   expression_profile<-expression_profile_saver$estimate
   stopCluster(cl)
   return(expression_profile)
