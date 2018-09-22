@@ -82,9 +82,11 @@
     ```r
     # data imputation, it may take a little long time without parallel computation.
     crop_seq_imputation<-Data_imputation(crop_seq_qc$expression_profile,cpu_num=4)
+    ```
     ```r
     # cell filtering, it may take a little long time without parallel computation.
     crop_seq_filtered<-Cell_filtering(crop_seq_imputation,crop_seq_qc$perturb_information,cpu_num=4)
+    ```
 
     * The second step: model building
     ```r
