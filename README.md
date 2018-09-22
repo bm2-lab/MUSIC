@@ -14,7 +14,7 @@
     library(Biostrings)
     library(clusterProfiler)
     library(devtools)
-    #[SAVER](https://github.com/mohuangx/SAVER)
+    ## https://github.com/mohuangx/SAVER
     library(SAVER)
     install_github("bm2-lab/MASCOT")
     library(MASCOT)
@@ -34,7 +34,8 @@
     ##          GCAGTCCTTCTN ACGTAGGGGTAN AAACAACCGAAN
     ## A1BG                0            0            0
     ## A1BG-AS1            0            0            0    ## A1CF                0            0            0
-    ```    ```r
+    ```    
+    ```r
     # perturb_information.
      length(perturb_information)
     ```
@@ -50,7 +51,8 @@
     
     ## GCAGTCCTTCTN ACGTAGGGGTAN AAACAACCGAAN TCAGTGGCTTCT AGTATTCTCACN TTATAGCATGCA 
     ##      "NR4A1"     "NFATC2"       "CTRL"       "CTRL"       "CTRL"       "CTRL"
-    ```    ```r
+    ```    
+    ```r
     # sgRNA_information.
     length(sgRNA_information)
     ```
