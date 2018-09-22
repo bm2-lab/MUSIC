@@ -14,6 +14,8 @@
     library(Biostrings)
     library(clusterProfiler)
     library(devtools)
+    #[SAVER](https://github.com/mohuangx/SAVER)
+    library(SAVER)
     install_github("bm2-lab/MASCOT")
     library(MASCOT)
     ```
@@ -92,41 +94,54 @@
     * The second step: model building
     ```r
     # obtain highly dispersion differentially expressed genes.
-    crop_seq_vargene<-Get_high_var_genes(crop_seq_filtered$expression,crop_seq_filtered$perturb_information,plot=T)
+    crop_seq_vargene<-Get_high_varGenes(crop_seq_filtered$expression,crop_seq_filtered$perturb_information,plot=T)
     ```
     ![](figure/get_high_var_genes.png)<!-- -->
     
     ```r
-    # get topics. This step may take a long time if you choosed a large scope of topic number.
+    # get topics. 
     topic_model_list<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=c(4:6))
+    
+    # This step may take a long time if you choosed a large scope of topic number. You can run each topic number seperately, then combine them to save time.
+    topic_1<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=4)
+    topic_2<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=5)
+    topic_3<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=6)
+    topic_model_list<-list()
+    topic_model_list[[1]]<-topic_1[[1]]
+    topic_model_list[[2]]<-topic_2[[1]]
+    topic_model_list[[3]]<-topic_3[[1]]
+    
     ```
     ```r
-    # select the optimal topic number.
-    optimalModel<-Select_topic_number(topic_model_list,species="Hs",plot=T)
+    # select the optimal topic number.  
+    optimalModel<-Select_topic_number(topic_model_list,plot=T)
+    
+    #If you just calculated one topic number, you can skip this step, just run the following:
+    optimalModel<-topic_model_list[[1]]
     ```
     ![](figure/select_topic_number.png)<!-- -->
     
     ```r
     # annotate each topic's functions. For parameter "species", Hs(homo sapiens) or Mm(mus musculus) are available.
-    topic_func<-Topic_func_anno(optimal_topics,species="Hs",plot=T)
+    topic_func<-Topic_func_anno(optimalModel,species="Hs",plot=T)
     ```
     ![](figure/topic_annotation.png)<!-- -->
     
     * The third step: perturbation effect prioritizing
     ```r
     # calculate topic distribution for each cell.
-    distri_Diff<-Diff_topic_distri(optimalModel,crop_seq_filtered$perturb_information,plot=T)
+    distri_diff<-Diff_topic_distri(optimalModel,crop_seq_filtered$perturb_information,plot=T)
     ```
     ![](figure/distribution_of_topics.png)
     
     ```r
     
     # calculate the overall perturbation effect ranking list without "offTarget_Info".
-    rank_overall_result<-Rank_overall(distri_Diff)
-    #rank_overall_result<-Rank_overall(distri_Diff,offTarget_hash=offTarget_Info) (when "offTarget_Info" is available).
+    rank_overall_result<-Rank_overall(distri_diff)
+    #rank_overall_result<-Rank_overall(distri_diff,offTarget_hash=offTarget_Info) (when "offTarget_Info" is available).
     
     # calculate the topic-specific ranking list.
-    rank_topic_specific_result<-Rank_specific(distri_Diff)
+    rank_topic_specific_result<-Rank_specific(distri_diff)
     
     # calculate the perturbation correlation.
     Correlation_perturbation(distri_diff,plot=T)
