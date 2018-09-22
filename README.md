@@ -19,9 +19,10 @@
     ```r
     # take "data_format_example/crop_unstimulated.RData" as an example.
     load("data_format_example/crop_unstimulated.RData")
-    dim(expression_profile)    ```
+    dim(expression_profile)   
     ```
-      ## [1] 36722  2646
+    ```
+    ## [1] 36722  2646
     ```
     ```r
     expression_profile[1:3,1:3]
@@ -30,13 +31,12 @@
     ##          GCAGTCCTTCTN ACGTAGGGGTAN AAACAACCGAAN
     ## A1BG                0            0            0
     ## A1BG-AS1            0            0            0    ## A1CF                0            0            0
-    ```
-    ```r
+    ```    ```r
     # perturb_information.
      length(perturb_information)
     ```
-
-    ```    ## [1] 2646
+    ```   
+    ## [1] 2646
     ```
     ```r
     class(perturb_information)
@@ -84,7 +84,7 @@
     crop_seq_imputation<-Data_imputation(crop_seq_qc$expression_profile,cpu_num=4)
     ```r
     # cell filtering, it may take a little long time without parallel computation.
-    crop_seq_filtered<-Cell_filtering(crop_seq_imputation,crop_seq_qc$perturb_information,cpu_num=)
+    crop_seq_filtered<-Cell_filtering(crop_seq_imputation,crop_seq_qc$perturb_information,cpu_num=4)
 
     * The second step: model building
     ```r
