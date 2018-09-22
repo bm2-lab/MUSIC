@@ -46,7 +46,8 @@
     ```
     ##          GCAGTCCTTCTN ACGTAGGGGTAN AAACAACCGAAN
     ## A1BG                0            0            0
-    ## A1BG-AS1            0            0            0    ## A1CF                0            0            0
+    ## A1BG-AS1            0            0            0
+    ## A1CF                0            0            0
     ```    
     ```r
     # perturb_information.
