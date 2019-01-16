@@ -23,14 +23,13 @@
     
     # You can load the three files in "data_format_example/crop_unstimulated" to R environment.
     expression_profile<-read.table("data_format_example/crop_unstimulated/expression_profile.txt",head=T,row.names=1,sep="\t")
-    
     perturb_information_df<-read.table("data_format_example/crop_unstimulated/perturb_information.txt",head=T,row.names=1,sep="\t")
     perturb_information<-as.character(perturb_information_df[,1])
     names(perturb_information)<-row.names(perturb_information_df)
     # If you don't consider off-target effect, this file is not needed.
-    sgRNA_information_df<-read.table("data_format_example/crop_unstimulated/sgRNA_information.txt",head=T,row.names=1,sep="\t")
-    sgRNA_information<-as.character(sgRNA_information_df[,1])
-    names(sgRNA_information)<-row.names(sgRNA_information_df)
+    #sgRNA_information_df<-read.table("data_format_example/crop_unstimulated/sgRNA_information.txt",head=T,row.names=1,sep="\t")
+    #sgRNA_information<-as.character(sgRNA_information_df[,1])
+    #names(sgRNA_information)<-row.names(sgRNA_information_df)
     
     # Have a look at expression_profile
     dim(expression_profile)   
@@ -109,7 +108,7 @@
     * The second step: model building
     ```r
     # obtain highly dispersion differentially expressed genes.
-    crop_seq_vargene<-Get_high_varGenes(crop_seq_filtered$expression,crop_seq_filtered$perturb_information,plot=T)
+    crop_seq_vargene<-Get_high_varGenes(crop_seq_filtered$expression,crop_seq_filtered$perturb_information,y.cutoff=-0.05,plot=T)
     ```
     ![](figure/get_high_var_genes.png)<!-- -->
     
