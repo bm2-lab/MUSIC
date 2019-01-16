@@ -5,7 +5,7 @@
 Identify highly dispersion differentially expressed genes.
 }
 \description{
-By calculating the difference of dispersion between case and control, MASCOT identifys highly dispersion differentially expressed genes for subsequent analysis.
+By calculating the difference of dispersion between case and control, MUSIC identifys highly dispersion differentially expressed genes for subsequent analysis.
 }
 \usage{
 Get_high_varGenes(expression_profile, perturb_information, x.low.cutoff = 0.01, y.cutoff = 0, num.bin = 30, plot = FALSE, plot_path = "./get_high_var_genes.pdf")

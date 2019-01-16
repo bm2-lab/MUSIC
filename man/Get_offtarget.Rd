@@ -5,7 +5,7 @@
 Evaluating the offtarget effect of sgRNAs.
 }
 \description{
-sgRNA offtarget effect may exist for these novel type of data due to the application of CRISPR knockout screening technique. For CRISPRi technique, MASCOT won’t consider this step, since CRISPRi knockdown is specific with minimal off-target effects. MASCOT integrates sgRNA sequence information with its corresponding perturbation expression to determine whether the sgRNA has induced an off-target effect. By our analysis for such data, offtargets were not found, so you may skip this step if you want to save time or you don't have sgRNA sequence . The pipeline works fine even though this step isn't performed.
+sgRNA offtarget effect may exist for these novel type of data due to the application of CRISPR screening technique. For CRISPRi technique, MUSIC won’t consider this step, since CRISPRi knockdown is specific with minimal off-target effects. MUSIC integrates sgRNA sequence information with its corresponding perturbation expression to determine whether the sgRNA has induced an off-target effect. By our analysis for such data, offtargets were not found, so you may skip this step if you want to save time or you don't have sgRNA sequence . The pipeline works fine even though this step isn't performed.
 }
 \usage{
 Get_offtarget(offTarget_results, expression_profile, perturb_information, sgRNA_information)

@@ -2,10 +2,10 @@
 \alias{Rank_overall}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Obtaining the overall perturbation effect ranking list.
+Calculating the overall perturbation effect ranking list.
 }
 \description{
-MASCOT prioritizes the gene perturbation effect either as an overall perturbation effect on the cells, or in a functional topic-specific way. Here, the function calcultes and obtains the overall perturbation effect ranking list.}
+MUSIC prioritizes the gene perturbation effect either as an overall perturbation effect on the cells, or in a functional topic-specific way. Here, the function calcultes and obtains the overall perturbation effect ranking list.}
 \usage{
 Rank_overall(distri_diff, offTarget_hash = hash(), output = FALSE, file_path = "./rank_overall.txt")
 }

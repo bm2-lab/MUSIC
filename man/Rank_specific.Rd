@@ -2,10 +2,10 @@
 \alias{Rank_specific}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Obtaining the topic-specific perturbation effect ranking list.
+Calculating the topic-specific perturbation effect ranking list.
 }
 \description{
-MASCOT prioritizes the gene perturbation effect either as an overall perturbation effect on the cells, or in a functional topic-specific way. Here, the function calcultes and obtains the topic-specific perturbation effect ranking list.
+MUSIC prioritizes the gene perturbation effect either as an overall perturbation effect on the cells, or in a functional topic-specific way. Here, the function calcultes and obtains the topic-specific perturbation effect ranking list.
 }
 \usage{
 Rank_specific(distri_diff, output = FALSE, file_path = "./rank_specific.txt")

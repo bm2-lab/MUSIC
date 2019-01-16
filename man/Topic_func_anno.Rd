@@ -8,7 +8,7 @@ Annotating each topic's function.
 After calculating topics, MASCOT obtains the occurring probabilities of genes available in each topic. For each topic, genes with large probabilities were used to annotate the topic’s function. Specifically, MASCOT firstly selects the n\% top-ranked (default 20\%) genes of each topic based on their occurring probabilities. Then these genes were used to perform the functional enrichment annotation with R package clusterProfiler together with a FDR correction. Finally the top-ranked n (default 3) GO terms were selected to represent each topic’s key functions.
 }
 \usage{
-Topic_func_anno(model, species = "Hs", topNum = 3, plot = TRUE, plot_path = "./topic_annotation_GO.pdf")
+Topic_func_anno(model, species = "Hs", topNum = 5, plot = TRUE, plot_path = "./topic_annotation_GO.pdf")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,7 +19,7 @@ Topic_func_anno(model, species = "Hs", topNum = 3, plot = TRUE, plot_path = "./t
   The species the cells belong to. Currently species="Hs" for homo sapiens or species="Mm" for mus musculus are available.
 }
   \item{topNum}{
-  The top-ranked number (default 3) GO terms were selected to represent each topic’s key functions.
+  The top-ranked number (default 5) GO terms were selected to represent each topic’s key functions.
 }
   \item{plot}{
   TRUE by default. If TRUE, plot the graph.
