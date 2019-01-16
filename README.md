@@ -1,5 +1,5 @@
 
-# MUSIC: **M**odel-based **U**nderstanding of **S****I**ngle-cell **C**RISPR screening
+# MUSIC: Model-based Understanding of SIngle-cell CRISPR screening
 
 * **MUSIC** is the first one-stop applicable pipeline based on topic model to analyze single-cell CRISPR screening data (independently termed **Perturb-Seq**, **CRISP-seq**, or **CROP-seq**), which could help to prioritize the gene perturbation effect in a cellular heterogeneity level.
 * **MUSIC** is an integrated pipeline for model-based analysis of single cell CRISPR knockout screening data. **MUSIC** consists of three steps: **data preprocessing**, **model building** and **perturbation effect prioritizing**: 
