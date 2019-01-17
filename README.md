@@ -117,13 +117,15 @@
     topic_model_list<-Get_topics(crop_seq_vargene$expression_profile,crop_seq_vargene$perturb_information,topic_number=c(4:6))
     
     # This step may take a long time if you choosed a large scope of topic number. You can run each topic number seperately, then combine them to save time.
-    topic_1<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=4)
-    topic_2<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=5)
-    topic_3<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=6)
+    topic_1<-Get_topics(crop_seq_vargene$expression_profile,crop_seq_vargene$perturb_information,topic_number=4)
+    topic_2<-Get_topics(crop_seq_vargene$expression_profile,crop_seq_vargene$perturb_information,topic_number=5)
+    topic_3<-Get_topics(crop_seq_vargene$expression_profile,crop_seq_vargene$perturb_information,topic_number=6)
     topic_model_list<-list()
-    topic_model_list[[1]]<-topic_1[[1]]
-    topic_model_list[[2]]<-topic_2[[1]]
-    topic_model_list[[3]]<-topic_3[[1]]
+    topic_models_list$models<-list()
+    topic_models_list$perturb_information<-topic_1$perturb_information
+    topic_model_list$models[[1]]<-topic_1$models[[1]]
+    topic_model_list$models[[2]]<-topic_2$models[[1]]
+    topic_model_list$models[[3]]<-topic_3$models[[1]]
     
     ```
     ```r
@@ -144,7 +146,7 @@
     * The third step: perturbation effect prioritizing
     ```r
     # calculate topic distribution for each cell.
-    distri_diff<-Diff_topic_distri(optimalModel,crop_seq_filtered$perturb_information,plot=T)
+    distri_diff<-Diff_topic_distri(optimalModel,topic_model_list$perturb_information,plot=T)
     ```
     ![](figure/distribution_of_topics.png)
     
@@ -158,7 +160,7 @@
     rank_topic_specific_result<-Rank_specific(distri_diff)
     
     # calculate the perturbation correlation.
-    Correlation_perturbation(distri_diff,plot=T)
+    perturb_cor<-Correlation_perturbation(distri_diff,plot=T)
     ```
     ![](figure/perturbation_network.png)
     
