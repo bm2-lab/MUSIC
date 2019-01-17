@@ -103,7 +103,7 @@
     # cell filtering, it may take a little long time without parallel computation.
     crop_seq_filtered<-Cell_filtering(crop_seq_imputation$expression_profile,crop_seq_imputation$perturb_information,cpu_num=6)
     ```
-    ![](figure/invalid_rate.png)<!-- -->
+    ![](figure/Invalid_rate.png)<!-- -->
 
     * The second step: model building
     ```r
