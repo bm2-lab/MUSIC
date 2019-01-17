@@ -130,10 +130,10 @@
     ```
     ```r
     # select the optimal topic number.  
-    optimalModel<-Select_topic_number(topic_model_list,plot=T)
+    optimalModel<-Select_topic_number(topic_model_list$models,plot=T)
     
     #If you just calculated one topic number, you can skip this step, just run the following:
-    optimalModel<-topic_model_list[[1]]
+    optimalModel<-topic_model_list$models[[1]]
     ```
     ![](figure/select_topic_number.png)<!-- -->
     
