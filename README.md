@@ -97,24 +97,24 @@
     
     ```r
     # data imputation, it may take a little long time without parallel computation.
-    crop_seq_imputation<-Data_imputation(crop_seq_qc$expression_profile,cpu_num=15)
+    crop_seq_imputation<-Data_imputation(crop_seq_qc$expression_profile,crop_seq_qc$perturb_information,cpu_num=15)
     ```
     ```r
     # cell filtering, it may take a little long time without parallel computation.
-    crop_seq_filtered<-Cell_filtering(crop_seq_imputation,crop_seq_qc$perturb_information,cpu_num=6)
+    crop_seq_filtered<-Cell_filtering(crop_seq_imputation$expression_profile,crop_seq_imputation$perturb_information,cpu_num=6)
     ```
     ![](figure/invalid_rate.png)<!-- -->
 
     * The second step: model building
     ```r
     # obtain highly dispersion differentially expressed genes.
-    crop_seq_vargene<-Get_high_varGenes(crop_seq_filtered$expression,crop_seq_filtered$perturb_information,y.cutoff=-0.05,plot=T)
+    crop_seq_vargene<-Get_high_varGenes(crop_seq_filtered$expression_profile,crop_seq_filtered$perturb_information,y.cutoff=-0.05,plot=T)
     ```
     ![](figure/get_high_var_genes.png)<!-- -->
     
     ```r
     # get topics. 
-    topic_model_list<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=c(4:6))
+    topic_model_list<-Get_topics(crop_seq_vargene$expression_profile,crop_seq_vargene$perturb_information,topic_number=c(4:6))
     
     # This step may take a long time if you choosed a large scope of topic number. You can run each topic number seperately, then combine them to save time.
     topic_1<-Get_topics(crop_seq_vargene,crop_seq_filtered$perturb_information,topic_number=4)
