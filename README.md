@@ -35,13 +35,13 @@
     dim(expression_profile)   
     ```
     ```
-    ## [1] 36722  2646
+    ## [1] 36722  3259
     ```
     ```r
     expression_profile[1:3,1:3]
     ```
     ```
-    ##          GCAGTCCTTCTN ACGTAGGGGTAN AAACAACCGAAN
+    ##          TACTTGACCCCN TTACAGCTGAAC CTAAGGCCCTTA
     ## A1BG                0            0            0
     ## A1BG-AS1            0            0            0
     ## A1CF                0            0            0
@@ -51,34 +51,7 @@
      length(perturb_information)
     ```
     ```   
-    ## [1] 2646
-    ```
-    ```r
-    class(perturb_information)
-    head(perturb_information)
-    ```
-    ```
-    ## [1] "character"
-    
-    ## GCAGTCCTTCTN ACGTAGGGGTAN AAACAACCGAAN TCAGTGGCTTCT AGTATTCTCACN TTATAGCATGCA 
-    ##      "NR4A1"     "NFATC2"       "CTRL"       "CTRL"       "CTRL"       "CTRL"
-    ```    
-    ```r
-    # sgRNA_information.
-    length(sgRNA_information)
-    ```
-    ```
-    ## [1] 2646
-    ```
-    ```r
-    class(sgRNA_information)
-    head(sgRNA_information)
-    ```
-    ```
-    ##[1] "character"
-    
-    ##         GCAGTCCTTCTN          ACGTAGGGGTAN    AAACAACCGAAN   TCAGTGGCTTCT    AGTATTCTCACN    TTATAGCATGCA  
-    ## "Tcrlibrary_NR4A1_1"  "Tcrlibrary_NFATC2_1"    "CTRL00698"    "CTRL00320"     "CTRL00087"     "CTRL00640" 
+    ## [1] 3259
     ```
    
     * The first step: data preprocessing.
