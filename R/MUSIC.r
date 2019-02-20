@@ -113,7 +113,7 @@ Cell_qc<-function(expression_profile,perturb_information,species="Hs",gene_low=5
   require(stringr)
   perturb_information<-perturb_information[names(perturb_information) %in% colnames(expression_profile)]
   expression_profile <-expression_profile[,!duplicated(colnames(expression_profile))]
-  KO <- CreateSeuratObject(raw.data = expression_profile,normalization.method="LogNormalize",project = "expression_profile")
+  KO <- CreateSeuratObject(raw.data = expression_profile,normalization.method=FALSE,project = "expression_profile")
   if(species=="Hs"){
     mito.genes <- grep("^MT-", rownames(KO@raw.data), value = TRUE)
   }else if(species=="Mm"){
