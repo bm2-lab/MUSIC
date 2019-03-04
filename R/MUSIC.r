@@ -224,14 +224,8 @@ Cell_filtering<-function(expression_profile,perturb_information,cpu_num=4,cell_n
   library(stringr)
   options(warn=-1)
   get_varGene<-function(ex,s){
-    set.seed(1)
-    if(s<ex/2){
-      a=ks.test(as.numeric(ex[1:s]),sample(as.numeric(ex[(s+1):length(ex)]),s))
-      return(as.numeric(a$p.value))
-    }else{
-      a=ks.test(as.numeric(ex[1:s]),as.numeric(ex[(s+1):length(ex)]))
-      return(as.numeric(a$p.value))
-    }
+    a=ks.test(as.numeric(ex[1:s]),as.numeric(ex[(s+1):length(ex)]))
+    return(as.numeric(a$p.value))
   }
   perturb_information_delete_name<-function(perturb_information,delete_name){
     require(stringr)
@@ -263,21 +257,25 @@ Cell_filtering<-function(expression_profile,perturb_information,cpu_num=4,cell_n
   #filter KO genes who express little in ctrl samples, because it makes no sense.
   #calculate percent of zero value of control sample
   ko_names<-unique(perturb_information_ko_split)
+  Zero_ra<-c()
   if(length(ko_names[!(ko_names %in% row.names(expression_profile))])>0){
     print(paste("Warning! ",ko_names[!(ko_names %in% row.names(expression_profile))],"can't be found in the expression profile, the names of this knockout or knockdown maybe not official gene name, please check and use official gene name instead. Then run this function again. If it is already official gene name, then just go on!"))
   }
   for(i in 1:length(ko_names)){
     if(ko_names[i] %in% row.names(expression_profile)){
       zero_ratio<-length(expression_profile[ko_names[i],][which(expression_profile[ko_names[i],]==0)])/ncol(expression_profile)
+      Zero_ra[i]<-zero_ratio
       if(zero_ratio==1){
-        print(paste(ko_names[i],"is missing and will be filtered.",sep=" "))
+        print(paste(ko_names[i],"doesn't express and will be filtered.",sep=" "))
         perturb_information_ko<-perturb_information_delete_name(perturb_information_ko,ko_names[i])
       }
     }else{
+      Zero_ra[i]<-NA
       print(paste(ko_names[i],"is missing and will be filtered.",sep=" "))
       perturb_information_ko<-perturb_information_delete_name(perturb_information_ko,ko_names[i])
     }
   }
+  names(Zero_ra)<-ko_names
   expression_profile_ko<-expression_profile[,names(perturb_information_ko)]
   perturb_information_ctrl<-perturb_information[perturb_information=="CTRL"]
   expression_profile_ctrl<-expression_profile[,names(perturb_information_ctrl)]
@@ -341,7 +339,7 @@ Cell_filtering<-function(expression_profile,perturb_information,cpu_num=4,cell_n
     barplot(forPlot,names.arg=names(forPlot),xlab="Perturbation",ylab="Invalid_rate",las=2,,ylim=c(0,1))
     dev.off()
   }
-  return(list("expression_profile"=expression_profile_filter,"perturb_information"=perturb_information_filter,"perturb_information_abandon"=perturb_information_filter_abandon,"filter_record"=filter_record))
+  return(list("expression_profile"=expression_profile_filter,"perturb_information"=perturb_information_filter,"perturb_information_abandon"=perturb_information_filter_abandon,"filter_record"=filter_record,"zero_rate"=Zero_ra))
 }
 # ************************   obtaining high dispersion different genes
 Get_high_varGenes<-function(expression_profile,perturb_information,x.low.cutoff=0.01,y.cutoff=0,num.bin=30,plot=FALSE,plot_path="./get_high_var_genes.pdf"){
