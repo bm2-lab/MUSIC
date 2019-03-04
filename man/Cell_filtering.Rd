@@ -51,6 +51,7 @@ Cell_filtering(expression_profile, perturb_information, cpu_num = 4, cell_num_th
   \item{perturb_information }{The information (perturbation names and sample names) of cells retained after performing these filtering steps.}
   \item{perturb_information_abandon }{The information (perturbation names and sample names) abandoned after performing these filtering steps.}
   \item{filter_record }{The summary of filtering by these steps.}
+  \item{zero_rate }{The proportion of zero expression value in all cells for each perturbation.}
 }
 \references{
 1. Sternberg, S.H. & Doudna, J.A. Expanding the Biologist's Toolkit with CRISPR-Cas9. Mol Cell 58, 568-574 (2015).
