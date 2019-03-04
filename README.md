@@ -77,14 +77,14 @@
     ```
     ```r
     # cell filtering, it may take a little long time without parallel computation.
-    crop_seq_filtered<-Cell_filtering(crop_seq_imputation$expression_profile,crop_seq_imputation$perturb_information,cpu_num=6)
+    crop_seq_filtered<-Cell_filtering(crop_seq_imputation$expression_profile,crop_seq_imputation$perturb_information,cpu_num=10)
     ```
     ![](figure/Invalid_rate.png)<!-- -->
 
     * The second step: model building
     ```r
     # obtain highly dispersion differentially expressed genes.
-    crop_seq_vargene<-Get_high_varGenes(crop_seq_filtered$expression_profile,crop_seq_filtered$perturb_information,y.cutoff=-0.05,plot=T)
+    crop_seq_vargene<-Get_high_varGenes(crop_seq_filtered$expression_profile,crop_seq_filtered$perturb_information,plot=T)
     ```
     ![](figure/get_high_var_genes.png)<!-- -->
     
