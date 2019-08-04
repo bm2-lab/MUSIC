@@ -97,8 +97,8 @@
     topic_2<-Get_topics(crop_seq_vargene$expression_profile,crop_seq_vargene$perturb_information,topic_number=5)
     topic_3<-Get_topics(crop_seq_vargene$expression_profile,crop_seq_vargene$perturb_information,topic_number=6)
     topic_model_list<-list()
-    topic_models_list$models<-list()
-    topic_models_list$perturb_information<-topic_1$perturb_information
+    topic_model_list$models<-list()
+    topic_model_list$perturb_information<-topic_1$perturb_information
     topic_model_list$models[[1]]<-topic_1$models[[1]]
     topic_model_list$models[[2]]<-topic_2$models[[1]]
     topic_model_list$models[[3]]<-topic_3$models[[1]]
