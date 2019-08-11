@@ -481,12 +481,14 @@ Topic_func_anno <-function(model,species="Hs",topNum=5,plot=TRUE,plot_path="./to
   if(species=="Hs"){
     require(org.Hs.eg.db)
     organism="hsa"
-    Alia_entrez<-org.Hs.egALIAS2EG
+    Alia_entrez<-org.Hs.egALIAS2EG  
+    entrez_Alia<-org.Hs.egSYMBOL
     OrgDb<-"org.Hs.eg.db"
   }else if(species=="Mm"){
     require(org.Mm.eg.db)
     organism="mmu"
-    Alia_entrez<-org.Mm.egALIAS2EG
+    Alia_entrez<-org.Mm.egALIAS2EG  
+    entrez_Alia<-org.Mm.egSYMBOL
     OrgDb<-"org.Mm.eg.db"
   }else{
     stop("species should be 'Hs' or 'Mm'")
@@ -496,7 +498,8 @@ Topic_func_anno <-function(model,species="Hs",topNum=5,plot=TRUE,plot_path="./to
   my_geneName<-model@terms
   colnames(my_beta) <- my_geneName
   rownames(my_beta) <- paste('Topic',1:nrow(my_beta),sep=" ")
-  x<-Alia_entrez
+  x<-Alia_entrez 
+  y<-entrez_Alia
   my_geneName<-my_geneName[my_geneName %in% mappedkeys(x)]#filter some unrecognized alia name
   my_beta<-my_beta[,my_geneName]
   my_geneID<-as.list(x[my_geneName])
@@ -526,7 +529,11 @@ Topic_func_anno <-function(model,species="Hs",topNum=5,plot=TRUE,plot_path="./to
   for(i in 1:length(topic_id)){
     topic_id_name[i]=paste("Topic",i,sep=" ")
   }
-  names(topic_id)<-topic_id_name
+  names(topic_id)<-topic_id_name    
+  topic_geneName<-topic_id  
+  for(i in 1:length(topic_geneName)){  
+    topic_geneName[[i]]<-as.character(as.list(y[topic_id[[i]]]))    
+  }
   Compare_go <- compareCluster(geneCluster=topic_id, fun="enrichGO",OrgDb=OrgDb,ont="BP",minGSSize=1,qvalueCutoff=1,pvalueCutoff=1)
   enrich_result<-Compare_go@compareClusterResult
   enrich_result<-enrich_result[order(enrich_result$Cluster,enrich_result$qvalue),]
@@ -558,7 +565,7 @@ Topic_func_anno <-function(model,species="Hs",topNum=5,plot=TRUE,plot_path="./to
     print(p)
     dev.off()
   }
-  return(topic_annotation_result)
+  return(list("topic_annotation_result"=topic_annotation_result,"topic_annotation_geneName"=topic_geneName))
 }
 # ********************   evaluating off target effect
 Get_offtarget<-function(offTarget_results,expression_profile,perturb_information,sgRNA_information){
