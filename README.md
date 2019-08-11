@@ -16,6 +16,8 @@
     library(devtools)
     ## https://github.com/mohuangx/SAVER
     library(SAVER)
+    ## If install_github get something wrong like "tar: This does not look like a tar archive", you can run the next code to set curl.
+    #options("download.file.method"="libcurl")
     install_github("bm2-lab/MUSIC")
     library(MUSIC)
     ```
