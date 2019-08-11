@@ -5,7 +5,7 @@
 Annotating each topic's function.
 }
 \description{
-After calculating topics, MASCOT obtains the occurring probabilities of genes available in each topic. For each topic, genes with large probabilities were used to annotate the topic’s function. Specifically, MASCOT firstly selects the n\% top-ranked (default 20\%) genes of each topic based on their occurring probabilities. Then these genes were used to perform the functional enrichment annotation with R package clusterProfiler together with a FDR correction. Finally the top-ranked n (default 3) GO terms were selected to represent each topic’s key functions.
+After calculating topics, MUSIC obtains the occurring probabilities of genes available in each topic. For each topic, genes with large probabilities were used to annotate the topic’s function. Specifically, MASCOT firstly selects the n\% top-ranked (default 20\%) genes of each topic based on their occurring probabilities. Then these genes were used to perform the functional enrichment annotation with R package clusterProfiler together with a FDR correction. Finally the top-ranked n (default 3) GO terms were selected to represent each topic’s key functions.
 }
 \usage{
 Topic_func_anno(model, species = "Hs", topNum = 5, plot = TRUE, plot_path = "./topic_annotation_GO.pdf")
@@ -29,7 +29,7 @@ Topic_func_anno(model, species = "Hs", topNum = 5, plot = TRUE, plot_path = "./t
 }
 }
 \value{
-A dataframe showing the annotation result.
+A list contains a dataframe showing the annotation result and the gene symbol to annotate the function of each topic.
 
 }
 \references{
