@@ -109,54 +109,51 @@ Input_preprocess<-function(expression_profile,perturb_information){
 }
 # ********************** quality control of data
 Cell_qc<-function(expression_profile,perturb_information,species="Hs",gene_low=500,gene_high=10000,mito_high=0.1,umi_low=1000,umi_high=Inf,plot=FALSE,plot_path="./quality_control.pdf"){
-  require(Seurat)
   require(stringr)
-  perturb_information<-perturb_information[names(perturb_information) %in% colnames(expression_profile)]
-  expression_profile <-expression_profile[,!duplicated(colnames(expression_profile))]
-  KO <- CreateSeuratObject(raw.data = expression_profile,normalization.method=FALSE,project = "expression_profile")
   if(species=="Hs"){
-    mito.genes <- grep("^MT-", rownames(KO@raw.data), value = TRUE)
+    mito.genes <- grep("^MT-", rownames(expression_profile), value = FALSE)
   }else if(species=="Mm"){
-    mito.genes <- grep("^mt-", rownames(KO@raw.data), value = TRUE)
+    mito.genes <- grep("^mt-", rownames(expression_profile), value = FALSE)
   }else{
     stop("species should be 'Mm' or 'Hs'")
   }
-  percent.mito <- colSums(as.matrix(KO@raw.data[mito.genes, ]))/colSums(as.matrix(KO@raw.data))
-  KO <- AddMetaData(KO, percent.mito, "percent.mito")
-  KO <- SubsetData(KO, subset.name = "nUMI")
-  KO <- SubsetData(KO, subset.name = "nGene")
-  KO <- SubsetData(KO, subset.name = "percent.mito")
+  mito_percent<-function(x,mito.genes){
+    return(sum(x[mito.genes])/sum(x))
+  }    
+  percent.mito<-apply(expression_profile,2,mito_percent,mito.genes=mito.genes)
+  nUMI<-apply(expression_profile,2,sum)
+  nGene<-apply(expression_profile,2,function(x){length(x[x>0])})
+  expression_profile<-apply(expression_profile,2,function(x){x/(sum(x)/10000)})
+  expression_profile<-log(expression_profile+1)    
   if(species=="Hs"){
-    KO@data<-KO@data[!str_detect(row.names(KO@data),"^MT-"),]
-    
+    expression_profile<-expression_profile[!str_detect(row.names(expression_profile),"^MT-"),]
   }else if(species=="Mm"){
-    KO@data<-KO@data[!str_detect(row.names(KO@data),"^mt-"),]
+    expression_profile<-expression_profile[!str_detect(row.names(expression_profile),"^mt-"),]
   }
-  KO@meta.data$QC<-"filter"
-  for(i in 1:nrow(KO@meta.data)){
-    if(KO@meta.data$nGene[i]>gene_low & KO@meta.data$nGene[i]<gene_high & KO@meta.data$percent.mito[i]<mito_high & KO@meta.data$nUMI[i]>umi_low & KO@meta.data$nUMI[i]<umi_high){
-      KO@meta.data$QC[i]<-"retain"
+  filter_retain<-rep("filter",ncol(expression_profile))
+  for(i in 1:length(filter_retain)){
+    if(nGene[i]>gene_low & nGene[i]<gene_high & percent.mito[i]<mito_high & nUMI[i]>umi_low & nUMI[i]<umi_high){
+      filter_retain[i]<-"retain"
     }
   }
   if(plot){
     pdf(file=plot_path)
     par(mfrow=c(1,3))
-    hist(KO@meta.data$nGene,breaks = 20,freq=FALSE,xlab = "Gene numbers",ylab = "Density",main = "Gene numbers distribution")
-    lines(density(KO@meta.data$nGene),col="red",lwd=1)
-    hist(KO@meta.data$nUMI,breaks = 20,freq=FALSE,xlab = "UMI numbers",ylab = "Density",main = "UMI numbers distribution")
-    lines(density(KO@meta.data$nUMI),col="red",lwd=1)
-    hist(KO@meta.data$percent.mito,breaks = 20,freq=FALSE,xlab = "Percent of mito",ylab = "Density",main = "Percent of mito distribution")
-    lines(density(KO@meta.data$percent.mito),col="red",lwd=1)
-    p=VlnPlot(KO, c("nGene", "nUMI", "percent.mito"), nCol = 3, point.size.use=0.001,cols.use=c("palegreen","pink"),group.by = "QC")
-    print(p)
+    hist(nGene,breaks = 20,freq=FALSE,xlab = "Gene numbers",ylab = "Density",main = "Gene numbers distribution")
+    lines(nGene,col="red",lwd=1)
+    hist(nUMI,breaks = 20,freq=FALSE,xlab = "UMI numbers",ylab = "Density",main = "UMI numbers distribution")
+    lines(density(nUMI),col="red",lwd=1)
+    hist(percent.mito,breaks = 20,freq=FALSE,xlab = "Percent of mito",ylab = "Density",main = "Percent of mito distribution")
+    lines(density(percent.mito),col="red",lwd=1)
     dev.off()
   }
-  KO_filter<-as.matrix(KO@data[,which(KO@meta.data$QC=="retain")])
-  KO_data_qc<-KO_filter#have adopted total_expr=10000 and log
-  perturb_information_qc<-perturb_information[names(perturb_information) %in% colnames(KO_data_qc)]
-  perturb_information_abandon<-perturb_information[setdiff(names(perturb_information),names(perturb_information_qc))]
-  return(list("expression_profile"=KO_data_qc,"perturb_information"=perturb_information_qc,"perturb_information_abandon"=perturb_information_abandon))
+  SQ_filter<-as.matrix(expression_profile[,which(filter_retain=="retain")])
+  SQ_data_qc<-SQ_filter#have adopted total_expr=10000 and log
+    perturb_information_qc<-perturb_information[colnames(SQ_data_qc)]
+    perturb_information_abandon<-perturb_information[setdiff(names(perturb_information),names(perturb_information_qc))]
+    return(list("expression_profile"=SQ_data_qc,"perturb_information"=perturb_information_qc,"perturb_information_abandon"=perturb_information_abandon))
 }
+
 #*********************** complementary expression profile with SAVER package
 Data_imputation<-function(expression_profile,perturb_information,cpu_num=4,split=2){
   require(doParallel)
