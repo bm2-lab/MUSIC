@@ -1,2 +1,0 @@
-*.mtx filter=lfs diff=lfs merge=lfs -text
-*profile.txt filter=lfs diff=lfs merge=lfs -text
