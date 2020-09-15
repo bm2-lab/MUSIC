@@ -2,7 +2,6 @@
 # ********************** data importing
 # if data format is 10X, for convenience, this function is better.
 Input_preprocess_10X<-function(directory){
-  require(Seurat)
   require(hash)
   require(stringr)
   perturb_seq <- Read10X(directory)
@@ -476,13 +475,13 @@ Topic_func_anno <-function(model,species="Hs",topNum=5,plot=TRUE,plot_path="./to
   require(Biostrings)
   require(dplyr)
   if(species=="Hs"){
-    require(org.Hs.eg.db)
+    library(org.Hs.eg.db)
     organism="hsa"
     Alia_entrez<-org.Hs.egALIAS2EG  
     entrez_Alia<-org.Hs.egSYMBOL
     OrgDb<-"org.Hs.eg.db"
   }else if(species=="Mm"){
-    require(org.Mm.eg.db)
+    library(org.Mm.eg.db)
     organism="mmu"
     Alia_entrez<-org.Mm.egALIAS2EG  
     entrez_Alia<-org.Mm.egSYMBOL
