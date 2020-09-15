@@ -68,11 +68,8 @@
     
     ```r
     # cell quality control
-    crop_seq_qc<-Cell_qc(crop_seq_list$expression_profile,crop_seq_list$perturb_information,species="Hs",plot=T)
-    ```
-    ![](figure/quality_control.png)<!-- -->
-    
-    ```r
+    crop_seq_qc<-Cell_qc(crop_seq_list$expression_profile,crop_seq_list$perturb_information,species="Hs",plot=F)
+   
     # data imputation, it may take a little long time without parallel computation.
     crop_seq_imputation<-Data_imputation(crop_seq_qc$expression_profile,crop_seq_qc$perturb_information,cpu_num=15)
     ```
