@@ -13,8 +13,7 @@
 * **Attention:**  **（1）** The label of the control sample needs to be "CTRL".
 
 ## Install
-* For illustration purpose, we took the dataset **[crop_stimulated](https://www.jianguoyun.com/p/DRRX0KwQu7fmCBicpb0D)** as an example.
-    * Install: You can install the **MUSIC** package from Github using **devtools** packages with R>=3.4.1. For convenience, you can also install the **MUSIC** package from Docker Hub with the link [music](https://hub.docker.com/r/bm2lab/music/)
+* Install: You can install the **MUSIC** package from Github using **devtools** packages with R>=3.4.1. For convenience, you can also install the **MUSIC** package from Docker Hub with the link [music](https://hub.docker.com/r/bm2lab/music/)
     ```r
     library(Biostrings)
     library(clusterProfiler)
@@ -27,7 +26,7 @@
     library(MUSIC)
     ```
  ## Tutorial
-    * You can load the three files in "[crop_stimulated](https://www.jianguoyun.com/p/DRRX0KwQu7fmCBicpb0D)" to R environment.
+ * For illustration purpose, we took the dataset **[crop_stimulated](https://www.jianguoyun.com/p/DRRX0KwQu7fmCBicpb0D)** as an example. You can load the three files in "[crop_stimulated](https://www.jianguoyun.com/p/DRRX0KwQu7fmCBicpb0D)" to R environment.
     ```r
     expression_profile<-read.table("./crop_stimulated/expression_profile.txt",head=T,row.names=1,sep="\t")
     perturb_information_df<-read.table("./crop_stimulated/perturb_information.txt",head=T,row.names=1,sep="\t")
@@ -60,7 +59,6 @@
     ```   
     ## [1] 3259
     ```
-   
     * The first step: data preprocessing.
     ```r
     # For "data_format_example/crop_unstimulated.RData", this function integrates the input data and filters mitochondrial ribosomal protein(^MRP) and ribosomal protein(^RP).
