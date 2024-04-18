@@ -114,7 +114,7 @@
     #If you just calculated one topic number, you can skip this step, just run the following:
     optimalModel<-topic_model_list$models[[1]]
     ```
-    ![](figure/select_topic_number.png)<!-- -->
+    ![](figure/select_topic_num.png)<!-- -->
     
     ```r
     # annotate each topic's functions. For parameter "species", Hs(homo sapiens) or Mm(mus musculus) are available.
