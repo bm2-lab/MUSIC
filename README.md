@@ -74,12 +74,13 @@
     # cell quality control
     crop_seq_qc<-Cell_qc(crop_seq_list$expression_profile,crop_seq_list$perturb_information,species="Hs",plot=F)
    
-    # data imputation, it may take a little long time without parallel computation.
-    crop_seq_imputation<-Data_imputation(crop_seq_qc$expression_profile,crop_seq_qc$perturb_information,cpu_num=15)
+    # data imputation （optional）, it may take a little long time without parallel computation.
+    set.seed(234)
+    crop_seq_imputation<-Data_imputation(crop_seq_qc$expression_profile,crop_seq_qc$perturb_information,cpu_num=30)
     ```
     ```r
     # cell filtering, it may take a little long time without parallel computation.
-    crop_seq_filtered<-Cell_filtering(crop_seq_imputation$expression_profile,crop_seq_imputation$perturb_information,cpu_num=10)
+    crop_seq_filtered<-Cell_filtering(crop_seq_imputation$expression_profile,crop_seq_imputation$perturb_information,cell_num_threshold=20,plot=T,cpu_num=30)
     ```
     ![](figure/Invalid_rate.png)<!-- -->
 
