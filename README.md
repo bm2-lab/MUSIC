@@ -141,7 +141,7 @@
     # calculate the perturbation correlation.
     perturb_cor<-Correlation_perturbation(distri_diff,plot=T)
     ```
-    ![](figure/perturbation_network.png)
+    ![](figure/perturbation_network2.png)
     
     * If sgRNA sequence of each knockouts were known and you want to investigate if they have off-targets, you can perform this step.  This step won't affect the final ranking result, but just present the off-target information. In most cases, the induced sgRNA in such experiment has no off-targets. **If you do not want to consider this factor, then just skip this step**. 
     ```r
