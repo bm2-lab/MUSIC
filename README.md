@@ -159,6 +159,6 @@
   Duan, B., et al., Model-based understanding of single-cell CRISPR screening. Nat Commun, 2019. 10(1): p. 2233.
   
   ## Contact
-  bioinfo_db@163.com or qiliu@tongji.edu.cn
+  binduan@sjtu.edu.cn or qiliu@tongji.edu.cn
   
  
