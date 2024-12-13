@@ -13,7 +13,7 @@
 * **Attention:**  **（1）** The label of the control sample needs to be "CTRL".
 
 ## Install
-* Install: You can install the **MUSIC** package from Github using **devtools** packages with R>=3.4.1. For convenience, you can also install the **MUSIC** package from Docker Hub with the link [music](https://hub.docker.com/r/bm2lab/music/)
+* Install: You can install the **MUSIC** package from Github using **devtools** packages with R>=3.4.1. 
     ```r
     library(Biostrings)
     library(clusterProfiler)
